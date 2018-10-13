@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>FreeFeed API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -213,8 +213,6 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -222,165 +220,704 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+            <a href="#freefeed-api" class="toc-h1 toc-link" data-title="Freefeed API">Freefeed API</a>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#http-request" class="toc-h2 toc-link" data-title="HTTP Request">HTTP Request</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
-                  </li>
-                  <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#post-payload" class="toc-h2 toc-link" data-title="POST Payload">POST Payload</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#attachments" class="toc-h1 toc-link" data-title="Attachments">Attachments</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-attachment" class="toc-h2 toc-link" data-title="Create Attachment">Create Attachment</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#bookmarklet" class="toc-h1 toc-link" data-title="Bookmarklet">Bookmarklet</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-bookmarklet" class="toc-h2 toc-link" data-title="Create Bookmarklet">Create Bookmarklet</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#comments" class="toc-h1 toc-link" data-title="Comments">Comments</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-comment" class="toc-h2 toc-link" data-title="Create Comment">Create Comment</a>
+                  </li>
+                  <li>
+                    <a href="#update-comment" class="toc-h2 toc-link" data-title="Update Comment">Update Comment</a>
+                  </li>
+                  <li>
+                    <a href="#delete-comment" class="toc-h2 toc-link" data-title="Delete Comment">Delete Comment</a>
+                  </li>
+                  <li>
+                    <a href="#like-comment" class="toc-h2 toc-link" data-title="Like Comment">Like Comment</a>
+                  </li>
+                  <li>
+                    <a href="#unlike-comment" class="toc-h2 toc-link" data-title="Unlike Comment">Unlike Comment</a>
+                  </li>
+                  <li>
+                    <a href="#get-likes-of-a-comment" class="toc-h2 toc-link" data-title="Get Likes of a Comment">Get Likes of a Comment</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#posts" class="toc-h1 toc-link" data-title="Posts">Posts</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-post" class="toc-h2 toc-link" data-title="Get Post">Get Post</a>
+                  </li>
+                  <li>
+                    <a href="#create-post" class="toc-h2 toc-link" data-title="Create Post">Create Post</a>
+                  </li>
+                  <li>
+                    <a href="#delete-post" class="toc-h2 toc-link" data-title="Delete Post">Delete Post</a>
+                  </li>
+                  <li>
+                    <a href="#update-post" class="toc-h2 toc-link" data-title="Update Post">Update Post</a>
+                  </li>
+                  <li>
+                    <a href="#like-post" class="toc-h2 toc-link" data-title="Like Post">Like Post</a>
+                  </li>
+                  <li>
+                    <a href="#unlike-post" class="toc-h2 toc-link" data-title="Unlike Post">Unlike Post</a>
+                  </li>
+                  <li>
+                    <a href="#hide-post" class="toc-h2 toc-link" data-title="Hide Post">Hide Post</a>
+                  </li>
+                  <li>
+                    <a href="#unhide-post" class="toc-h2 toc-link" data-title="Unhide Post">Unhide Post</a>
+                  </li>
+                  <li>
+                    <a href="#disable-comments-for-post" class="toc-h2 toc-link" data-title="Disable comments for Post">Disable comments for Post</a>
+                  </li>
+                  <li>
+                    <a href="#enable-comments-for-post" class="toc-h2 toc-link" data-title="Enable comments for Post">Enable comments for Post</a>
+                  </li>
+              </ul>
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+        <h1 id='freefeed-api'>Freefeed API</h1>
+<p>Unoficial Freefeed API documentation.</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>To obtain API token:</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">()</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">client</span><span class="p">.</span><span class="nf">authenticate</span><span class="p">(</span><span class="ss">username: </span><span class="s1">'yourusername'</span><span class="p">,</span> <span class="ss">password: </span><span class="s1">'yourpassword'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/session"</span>
+  -X POST
+  -d <span class="s2">"username=yourusername&amp;password=yourpassword"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"administrators"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"admins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"administrators"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"authToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourFreefeedAPIToken"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
+<blockquote>
+<p>To authenticate by the API key, use this code:</p>
+</blockquote>
+<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+curl <span class="s2">"api_endpoint_here"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+</code></pre>
+<blockquote>
+<p>Make sure to replace <code>yourFreefeedAPIToken</code> with your API key.</p>
+</blockquote>
+
+<p>Freefeed uses API keys to allow access to the API. You can get your API key on <a href="https://freefeed.net/settings">the settings page</a> (BetterFeed should be turned on), or on the <a href="https://m.freefeed.net/settings/accounts">settings page</a> of <a href="https://m.freefeed.net/">m.freefeed.net</a> frontend (no need for BetterFeed).</p>
+
+<p>Or you can obtain your API key by providing your username and password.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v1/session</code></p>
+<h3 id='post-payload'>POST Payload</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>username</td>
+<td>Your username</td>
+</tr>
+<tr>
+<td>password</td>
+<td>Your password</td>
+</tr>
+</tbody></table>
+
+<p>Freefeed expects for the API key to be included in most API requests to the server in a header that looks like the following:</p>
+
+<p><code>x-authentication-token: yourFreefeedAPIToken</code></p>
+
+<aside class="notice">
+You must replace <code>yourFreefeedAPIToken</code> with your personal API key.
+</aside>
+<h1 id='attachments'>Attachments</h1><h2 id='create-attachment'>Create Attachment</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">attachment_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Attachment</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+<span class="n">attachment_resource</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+  <span class="ss">file: </span><span class="no">Faraday</span><span class="o">::</span><span class="no">UploadIO</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"/path/to/your/file.jpg"</span><span class="p">,</span> <span class="s1">'image/jpeg'</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/attachments"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -F <span class="s2">"file=@/path/to/your/file.jpg"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dd2f5eaa-dad8-439a-93cc-6bdcf74ecee0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">75694</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">media.freefeed.net</span><span class="se">\/</span><span class="s2">attachments</span><span class="se">\/</span><span class="s2">dd2f5eaa-dad8-439a-93cc-6bdcf74ecee0.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"thumbnailUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">media.freefeed.net</span><span class="se">\/</span><span class="s2">attachments</span><span class="se">\/</span><span class="s2">thumbnails</span><span class="se">\/</span><span class="s2">dd2f5eaa-dad8-439a-93cc-6bdcf74ecee0.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"imageSizes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"o"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"w"</span><span class="p">:</span><span class="w"> </span><span class="mi">700</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"h"</span><span class="p">:</span><span class="w"> </span><span class="mi">465</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">media.freefeed.net</span><span class="se">\/</span><span class="s2">attachments</span><span class="se">\/</span><span class="s2">dd2f5eaa-dad8-439a-93cc-6bdcf74ecee0.jpg"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"t"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"w"</span><span class="p">:</span><span class="w"> </span><span class="mi">263</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"h"</span><span class="p">:</span><span class="w"> </span><span class="mi">175</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">media.freefeed.net</span><span class="se">\/</span><span class="s2">attachments</span><span class="se">\/</span><span class="s2">thumbnails</span><span class="se">\/</span><span class="s2">dd2f5eaa-dad8-439a-93cc-6bdcf74ecee0.jpg"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"t2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"w"</span><span class="p">:</span><span class="w"> </span><span class="mi">527</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"h"</span><span class="p">:</span><span class="w"> </span><span class="mi">350</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">media.freefeed.net</span><span class="se">\/</span><span class="s2">attachments</span><span class="se">\/</span><span class="s2">thumbnails2</span><span class="se">\/</span><span class="s2">dd2f5eaa-dad8-439a-93cc-6bdcf74ecee0.jpg"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"mediaType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1539380940526</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="mi">1539380940526</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"admins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"administrators"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"administrators"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates an attachment.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p>Multipart upload request:</p>
+
+<p><code>POST https://freefeed.net/v1/attachments</code></p>
+<h3 id='post-payload'>Post payload</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>file</td>
+<td>Contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.</td>
+</tr>
+</tbody></table>
+<h1 id='bookmarklet'>Bookmarklet</h1><h2 id='create-bookmarklet'>Create Bookmarklet</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">bookmarklet_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Bookmarklet</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+<span class="n">bookmarklet</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Types</span><span class="o">::</span><span class="no">Bookmarklet</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">title: </span><span class="s1">'New Post'</span><span class="p">,</span>
+  <span class="ss">comment: </span><span class="s1">'First comment'</span><span class="p">,</span>
+  <span class="ss">image: </span><span class="s1">'http://example.com/image.jpeg'</span>
+<span class="p">)</span>
+<span class="n">bookmarklet_resource</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="n">bookmarklet</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/bookmarklet"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -H <span class="s2">"content-type: application/json"</span>
+  -d <span class="s1">'{"Title":"New Post","comment":"First comment","image":"http://example.com/image.jpeg"}'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7ef5649e-ef13-4a26-aeee-e9c33d94cd0f"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Post"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commentsDisabled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539429526882"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539429526882"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedOwnCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"postedTo"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"28c68cc1-5bb4-40bd-9767-155c1de480a0"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"ebf22ee2-8825-420e-9e0a-b7eaf2f669f9"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"f508e4f2-bc0d-4648-a364-fd004ef30a26"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"omittedComments"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"youru FUNNY sername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28c68cc1-5bb4-40bd-9767-155c1de480a0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Posts"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ebf22ee2-8825-420e-9e0a-b7eaf2f669f9"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"First comment"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539429527056"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539429527056"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"hideType"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"hasOwnLike"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f508e4f2-bc0d-4648-a364-fd004ef30a26"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1fd58ad4-4ce4-47dd-a91c-0a6ddfb31ccb.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42494"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">media.freefeed.net</span><span class="se">\/</span><span class="s2">attachments</span><span class="se">\/</span><span class="s2">f508e4f2-bc0d-4648-a364-fd004ef30a26.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"thumbnailUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">media.freefeed.net</span><span class="se">\/</span><span class="s2">attachments</span><span class="se">\/</span><span class="s2">f508e4f2-bc0d-4648-a364-fd004ef30a26.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"imageSizes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"o"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"w"</span><span class="p">:</span><span class="w"> </span><span class="mi">350</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"h"</span><span class="p">:</span><span class="w"> </span><span class="mi">175</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">media.freefeed.net</span><span class="se">\/</span><span class="s2">attachments</span><span class="se">\/</span><span class="s2">f508e4f2-bc0d-4648-a364-fd004ef30a26.jpg"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"mediaType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539429526723"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539429526723"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a post (optionally with a comment and an attachment).</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p>Multipart upload request:</p>
+
+<p><code>POST https://freefeed.net/v1/bookmarklet</code></p>
+<h3 id='json-body-parameters'>JSON Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>Yes</td>
+<td>A body of the post. Must include at least one \S character</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>String</td>
+<td>No</td>
+<td>First comment to the post</td>
+</tr>
+<tr>
+<td>image</td>
+<td>String</td>
+<td>No</td>
+<td>URL of an image attachment to the post</td>
+</tr>
+<tr>
+<td>images</td>
+<td>Array of String</td>
+<td>No</td>
+<td>Array or URLs of image attachments to the post</td>
+</tr>
+<tr>
+<td>meta</td>
+<td><a href="#metabookmarklet">MetaBookmarklet</a></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='metabookmarklet'>MetaBookmarklet</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>feeds</td>
+<td>String or Array of String</td>
+<td>Yes</td>
+<td>Username or groupname or array of username and/or groupnames which the post should be posted to</td>
+</tr>
+</tbody></table>
+<h1 id='comments'>Comments</h1><h2 id='create-comment'>Create Comment</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+
+<span class="n">comment_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Comment</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">comment</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Types</span><span class="o">::</span><span class="no">CommentCreate</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">comment: </span><span class="p">{</span> <span class="ss">body: </span><span class="s2">"Hi, love!"</span><span class="p">,</span> <span class="ss">postId: </span><span class="s1">'5579b79b-c5f5-464c-b101-638de4a8f335'</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">comment_resource</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/comments"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -H <span class="s2">"content-type: application/json"</span>
+  -d <span class="s1">'{"comment":{"body":"Hi, love!","postId":"5579b79b-c5f5-464c-b101-638de4a8f335"}}'</span>
+
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8cb67cab-0b4e-46ce-94bb-90b6eb2cc092"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hi, love!"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539384483129"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"admins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a comment.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v1/comments</code></p>
+<h3 id='json-body-parameters'>JSON Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td><a href="#commentcreate">CommentCreate</a></td>
+<td>Yes</td>
+<td>See CommentCreate</td>
+</tr>
+</tbody></table>
+<h3 id='commentcreate'>CommentCreate</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>String</td>
+<td>Yes</td>
+<td>A body of the comment. Must include at least one \S character</td>
+</tr>
+<tr>
+<td>postId</td>
+<td>String</td>
+<td>Yes</td>
+<td>Id of the post for the comment</td>
+</tr>
+</tbody></table>
+<h2 id='update-comment'>Update Comment</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+
+<span class="n">comment_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Comment</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">comment</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Types</span><span class="o">::</span><span class="no">CommentUpdate</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">comment: </span><span class="p">{</span> <span class="ss">body: </span><span class="s2">"Bye bye happiness"</span><span class="p">})</span>
+
+<span class="n">comment_resource</span><span class="p">.</span><span class="nf">update</span><span class="p">({</span><span class="ss">id: </span><span class="s1">'8cb67cab-0b4e-46ce-94bb-90b6eb2cc092'</span><span class="p">},</span> <span class="n">comment</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/comments/8cb67cab-0b4e-46ce-94bb-90b6eb2cc092"</span>
+  -X PUT
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -H <span class="s2">"content-type: application/json"</span>
+  -d <span class="s1">'{"comment":{"body":"Bye bye happiness"}}'</span>
+
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8cb67cab-0b4e-46ce-94bb-90b6eb2cc092"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bye bye happiness"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539384483129"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"admins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint updates a comment.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code>PUT https://freefeed.net/v1/comments/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -390,36 +927,60 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>The ID of the comment to update</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h3 id='json-body-parameters-2'>JSON Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>comment</td>
+<td><a href="#commentupdate">CommentUpdate</a></td>
+<td>Yes</td>
+<td>See CommentUpdate</td>
+</tr>
+</tbody></table>
+<h3 id='commentupdate'>CommentUpdate</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>String</td>
+<td>Yes</td>
+<td>A body of the comment. Must include at least one \S character</td>
+</tr>
+</tbody></table>
+<h2 id='delete-comment'>Delete Comment</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
+<span class="n">comment_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Comment</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">comment_resource</span><span class="p">.</span><span class="nf">destroy</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'8cb67cab-0b4e-46ce-94bb-90b6eb2cc092'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/comments/8cb67cab-0b4e-46ce-94bb-90b6eb2cc092"</span>
   -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The above command returns empty JSON</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
 </span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
+<p>This endpoint deletes a specific comment.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code>DELETE https://freefeed.net/v1/comments/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -429,65 +990,974 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>The ID of the comment to delete</td>
 </tr>
 </tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-<p>The Kittn API uses the following error codes:</p>
-
+<h3 id='errors'>Errors</h3>
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Code</th>
+<th>JSON</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>{&quot;err&quot;:&quot;You don&#39;t have permission to delete this comment&quot;}</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>{&quot;err&quot;:&quot;Can not find comment&quot;}</td>
+</tr>
+</tbody></table>
+<h2 id='like-comment'>Like Comment</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+
+<span class="n">comment_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Comment</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">comment_resource</span><span class="p">.</span><span class="nf">like</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'56d1864d-0d58-49b8-9827-109850991f60'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v2/comments/56d1864d-0d58-49b8-9827-109850991f60/like"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -X POST
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-12T23:32:10.109Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint likes a specific post.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v2/comments/&lt;ID&gt;/like</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the comment to like</td>
+</tr>
+</tbody></table>
+<h2 id='unlike-comment'>Unlike Comment</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+
+<span class="n">comment_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Comment</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">comment_resource</span><span class="p">.</span><span class="nf">unlike</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'56d1864d-0d58-49b8-9827-109850991f60'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v2/comments/56d1864d-0d58-49b8-9827-109850991f60/unlike"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -X POST
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"likes"</span><span class="p">:[],</span><span class="s2">"users"</span><span class="p">:[]}</span><span class="w">
+</span></code></pre>
+<p>This endpoint likes a specific post.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v2/comments/&lt;ID&gt;/unlike</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the comment to unlike</td>
+</tr>
+</tbody></table>
+<h2 id='get-likes-of-a-comment'>Get Likes of a Comment</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+
+<span class="n">comment_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Comment</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">comment_resource</span><span class="p">.</span><span class="nf">likes</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'56d1864d-0d58-49b8-9827-109850991f60'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v2/comments/56d1864d-0d58-49b8-9827-109850991f60/likes"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-12T23:32:10.109Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns likes of a specific comment.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>GET https://freefeed.net/v2/comments/&lt;ID&gt;/likes</code></p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the comment for which you want to get likes</td>
+</tr>
+</tbody></table>
+<h1 id='posts'>Posts</h1><h2 id='get-post'>Get Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'7c70927a-4e51-49e7-bfe1-33bc4c1c0618'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v2/posts/7c70927a-4e51-49e7-bfe1-33bc4c1c0618"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7c70927a-4e51-49e7-bfe1-33bc4c1c0618"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FAQ: frequently asked questions (and answers). If you have more questions, please contact @support."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commentsDisabled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1449074608680"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1475924950194"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedOwnCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5df98f17-6085-4a14-bcdc-1ae07cb1957f"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"postedTo"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"8b7db31d-d5f4-41be-a159-829cf9470007"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"1f96e911-e1d7-44b7-81f1-fa3da5bb449e"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"1d5f34cd-59fb-4967-af90-ae56a60d5392"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"ec3a56c7-19b1-4f07-864c-9e643c97ced3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"46dbbdbe-efbb-4f91-a853-b91d199176a1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"6726abcb-dcc3-4115-9b13-16332dd4cb1d"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"omittedComments"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5df98f17-6085-4a14-bcdc-1ae07cb1957f"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"welcome"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"welcome"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1448302642164"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1452687756552"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2009"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8b7db31d-d5f4-41be-a159-829cf9470007"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Posts"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5df98f17-6085-4a14-bcdc-1ae07cb1957f"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5df98f17-6085-4a14-bcdc-1ae07cb1957f"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"welcome"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"welcome"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1448302642164"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1452687756552"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2009"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1f96e911-e1d7-44b7-81f1-fa3da5bb449e"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"== About FreeFeed:"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1449074650399"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1475924960830"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"hideType"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"hasOwnLike"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5df98f17-6085-4a14-bcdc-1ae07cb1957f"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1d5f34cd-59fb-4967-af90-ae56a60d5392"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"If you have more questions, you can ask them at @support. If you have anything to add to the FAQ here, you can do it here: https:</span><span class="se">\/\/</span><span class="s2">freefeed.net</span><span class="se">\/</span><span class="s2">freefeed</span><span class="se">\/</span><span class="s2">ef954a33-39a3-43e5-a62d-698ed55c9548"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1449075294335"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1475928090704"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"hideType"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"hasOwnLike"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5df98f17-6085-4a14-bcdc-1ae07cb1957f"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a specific post.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://freefeed.net/v2/posts/&lt;ID&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the post to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='create-post'>Create Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Types</span><span class="o">::</span><span class="no">PostCreate</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="p">{</span>
+    <span class="ss">post: </span><span class="p">{</span> 
+      <span class="ss">body: </span><span class="s1">'Hello World!'</span>
+    <span class="p">},</span>
+    <span class="ss">meta: </span><span class="p">{</span>
+      <span class="ss">feeds: </span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/posts"</span>
+  -H <span class="s2">"content-type: application/json"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -d <span class="s1">'{"post":{"body":"HelloWorld!"},"meta":{"feeds":["yourusername"],"commentsDisabled":false}}'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7c70927a-4e51-49e7-bfe1-33bc4c1c0618"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HelloWorld!"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commentsDisabled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539348845566"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539348845566"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedOwnCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"postedTo"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"28c68cc1-5bb4-40bd-9767-155c1de480a0"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"omittedComments"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28c68cc1-5bb4-40bd-9767-155c1de480a0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Posts"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a post.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v1/posts</code></p>
+<h3 id='json-body-parameters'>JSON Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post</td>
+<td><a href="#postcreate">PostCreate</a></td>
+<td>Yes</td>
+<td>See PostCreate</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>meta</td>
+<td><a href="#metacreate">MetaCreate</a></td>
+<td>Yes</td>
+<td>See MetaCreate</td>
+</tr>
+</tbody></table>
+<h3 id='postcreate'>PostCreate</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>String</td>
+<td>Yes</td>
+<td>A body of the post. Must include at least one \S character</td>
 </tr>
 <tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+<td>attachments</td>
+<td>Array of UID</td>
+<td>No</td>
+<td>Array of previously uploaded attachmets ids</td>
+</tr>
+</tbody></table>
+<h3 id='metacreate'>MetaCreate</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>commentsDisabled</td>
+<td>Boolean</td>
+<td>No</td>
+<td>Indicates whether comments for the post should be disabled (Default is false)</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
+<td>feeds</td>
+<td>String or Array of String</td>
+<td>Yes</td>
+<td>Username or groupname or array of username and groupnames which the post should be posted to</td>
+</tr>
+</tbody></table>
+<h2 id='delete-post'>Delete Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">destroy</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'7c70927a-4e51-49e7-bfe1-33bc4c1c0618'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/posts/7c70927a-4e51-49e7-bfe1-33bc4c1c0618"</span>
+  -X DELETE
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"postStillAvailable"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint deletes a specific post.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>DELETE https://freefeed.net/v1/posts/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the post to delete</td>
+</tr>
+</tbody></table>
+<h3 id='errors'>Errors</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>JSON</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>{&quot;err&quot;:&quot;You can&#39;t delete another user&#39;s post&quot;}</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
+<td>404</td>
+<td>{&quot;err&quot;:&quot;Post not found&quot;}</td>
+</tr>
+</tbody></table>
+<h2 id='update-post'>Update Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Types</span><span class="o">::</span><span class="no">PostUpdate</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span> <span class="p">{</span> <span class="ss">post: </span><span class="p">{</span> <span class="ss">body: </span><span class="s1">'HelloWorldAgain!'</span> <span class="p">}</span> <span class="p">}</span> <span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">update</span><span class="p">({</span><span class="ss">id: </span><span class="s1">'7c70927a-4e51-49e7-bfe1-33bc4c1c0618'</span><span class="p">},</span> <span class="n">post</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/posts/7c70927a-4e51-49e7-bfe1-33bc4c1c0618"</span>
+  -X PUT
+  -H <span class="s2">"content-type: application/json"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -d <span class="s1">'{"post":{"body":"HelloWorldAgain!"}}'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7c70927a-4e51-49e7-bfe1-33bc4c1c0618"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HelloWorldAgain!"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commentsDisabled"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539348845566"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1539348845566"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"commentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedOwnCommentLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"postedTo"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"28c68cc1-5bb4-40bd-9767-155c1de480a0"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"omittedComments"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"omittedLikes"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28c68cc1-5bb4-40bd-9767-155c1de480a0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Posts"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"920196ff-f2b0-4319-8fb2-626e4ac76d2c"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourusername"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"screenName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your FUNNY username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isPrivate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"isProtected"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1538770654480"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureLargeUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profilePictureMediumUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"statistics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"likes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"attachments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint updates a specific post.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>PUT https://freefeed.net/v1/posts/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the post to update</td>
+</tr>
+</tbody></table>
+<h3 id='json-body-parameters-2'>JSON Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post</td>
+<td><a href="#postupdate">PostUpdate</a></td>
+<td>Yes</td>
+<td>See PostUpdate</td>
+</tr>
+</tbody></table>
+<h3 id='postupdate'>PostUpdate</h3>
+<p>At least one parameter required!</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>String</td>
+<td>No</td>
+<td>A body of the post. Must include at least one \S character</td>
 </tr>
 <tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>attachments</td>
+<td>Array of UID</td>
+<td>No</td>
+<td>Array of previously uploaded attachmets ids</td>
 </tr>
 <tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+<td>feeds</td>
+<td>Array of String</td>
+<td>No</td>
+<td>Array of username and/or groupnames where the post should be posted to</td>
+</tr>
+</tbody></table>
+<h2 id='like-post'>Like Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">like</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/like"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -X POST
+</code></pre>
+<blockquote>
+<p>The above command returns empty JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+<p>This endpoint likes a specific post.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v1/posts/&lt;ID&gt;/like</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the post to like</td>
+</tr>
+</tbody></table>
+<h3 id='errors-2'>Errors</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>JSON</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>{&quot;err&quot;:&quot;You can&#39;t like post that you have already liked&quot;}</td>
 </tr>
 <tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>403</td>
+<td>{&quot;err&quot;:&quot;You can&#39;t like your own post&quot;}</td>
+</tr>
+<tr>
+<td>404</td>
+<td>{&quot;err&quot;:&quot;Can&#39;t find post&quot;}</td>
+</tr>
+</tbody></table>
+<h2 id='unlike-post'>Unlike Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">unlike</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/unlike"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -X POST
+</code></pre>
+<blockquote>
+<p>The above command returns empty JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+<p>This endpoint unlikes a specific post.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v1/posts/&lt;ID&gt;/unlike</code></p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the post to unlike</td>
+</tr>
+</tbody></table>
+<h3 id='errors-3'>Errors</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>JSON</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>{&quot;err&quot;:&quot;You can&#39;t un-like post that you haven&#39;t yet liked&quot;}</td>
+</tr>
+<tr>
+<td>404</td>
+<td>{&quot;err&quot;:&quot;Can&#39;t find post&quot;}</td>
+</tr>
+</tbody></table>
+<h2 id='hide-post'>Hide Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">hide</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/hide"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -X POST
+</code></pre>
+<blockquote>
+<p>The above command returns empty JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+<p>This endpoint likes a specific post.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v1/posts/&lt;ID&gt;/hide</code></p>
+<h3 id='url-parameters-6'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the post to like</td>
+</tr>
+</tbody></table>
+<h3 id='errors-4'>Errors</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>JSON</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>404</td>
+<td>{&quot;err&quot;:&quot;Can&#39;t find post&quot;}</td>
+</tr>
+</tbody></table>
+<h2 id='unhide-post'>Unhide Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">unhide</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/unhide"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -X POST
+</code></pre>
+<blockquote>
+<p>The above command returns empty JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+<p>This endpoint unlikes a specific post.</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v1/posts/&lt;ID&gt;/unhide</code></p>
+<h3 id='url-parameters-7'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the post to unlike</td>
+</tr>
+</tbody></table>
+<h3 id='errors-5'>Errors</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>JSON</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>404</td>
+<td>{&quot;err&quot;:&quot;Can&#39;t find post&quot;}</td>
+</tr>
+</tbody></table>
+<h2 id='disable-comments-for-post'>Disable comments for Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">disable_comments</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/disableComments"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -X POST
+</code></pre>
+<blockquote>
+<p>The above command returns empty JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+<p>This endpoint disables comments for a specific post.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v1/posts/&lt;ID&gt;/disableComments</code></p>
+<h3 id='url-parameters-8'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the post to like</td>
+</tr>
+</tbody></table>
+<h3 id='errors-6'>Errors</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>JSON</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>{&quot;err&quot;:&quot;You can&#39;t disable comments for another user&#39;s post&quot;}</td>
+</tr>
+<tr>
+<td>404</td>
+<td>{&quot;err&quot;:&quot;Post not found&quot;}</td>
+</tr>
+</tbody></table>
+<h2 id='enable-comments-for-post'>Enable comments for Post</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'freefeed'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'yourFreefeedAPIToken'</span><span class="p">)</span>
+<span class="n">post_resource</span> <span class="o">=</span> <span class="no">Freefeed</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client: </span><span class="n">client</span><span class="p">)</span>
+
+<span class="n">post_resource</span><span class="p">.</span><span class="nf">enable_comments</span><span class="p">(</span><span class="ss">id: </span><span class="s1">'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/enableComments"</span>
+  -H <span class="s2">"x-authentication-token: yourFreefeedAPIToken"</span>
+  -X POST
+</code></pre>
+<blockquote>
+<p>The above command returns empty JSON:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{}</span><span class="w">
+</span></code></pre>
+<p>This endpoint enables comments for a specific post.</p>
+<h3 id='http-request-10'>HTTP Request</h3>
+<p><code>POST https://freefeed.net/v1/posts/&lt;ID&gt;/enableComments</code></p>
+<h3 id='url-parameters-9'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the post to unlike</td>
+</tr>
+</tbody></table>
+<h3 id='errors-7'>Errors</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>JSON</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>{&quot;err&quot;:&quot;You can&#39;t enable comments for another user&#39;s post&quot;}</td>
+</tr>
+<tr>
+<td>404</td>
+<td>{&quot;err&quot;:&quot;Post not found&quot;}</td>
 </tr>
 </tbody></table>
 
@@ -496,8 +1966,6 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
