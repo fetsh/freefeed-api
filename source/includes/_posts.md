@@ -286,7 +286,7 @@ attachments | Array of UID | No | Array of previously uploaded attachmets ids
 Parameter | Type | Required | Description
 --------- | ----------- | ----------- | -----------
 commentsDisabled | Boolean | No | Indicates whether comments for the post should be disabled (Default is false)
-feeds | String of Array of String | Yes | Username or groupname or array of username and groupnames where the post should be posted to
+feeds | String or Array of String | Yes | Username or groupname or array of username and groupnames which the post should be posted to
 
 
 
@@ -302,7 +302,7 @@ post_resource.destroy(id: '7c70927a-4e51-49e7-bfe1-33bc4c1c0618')
 ```
 
 ```shell
-curl "https://freefeed.net/v2/posts/7c70927a-4e51-49e7-bfe1-33bc4c1c0618"
+curl "https://freefeed.net/v1/posts/7c70927a-4e51-49e7-bfe1-33bc4c1c0618"
   -X DELETE
   -H "x-authentication-token: yourFreefeedAPIToken"
 ```
@@ -350,7 +350,7 @@ post_resource.update({id: '7c70927a-4e51-49e7-bfe1-33bc4c1c0618'}, post)
 ```
 
 ```shell
-curl "https://freefeed.net/v2/posts/7c70927a-4e51-49e7-bfe1-33bc4c1c0618"
+curl "https://freefeed.net/v1/posts/7c70927a-4e51-49e7-bfe1-33bc4c1c0618"
   -X PUT
   -H "content-type: application/json"
   -H "x-authentication-token: yourFreefeedAPIToken"
@@ -487,7 +487,7 @@ post_resource.like(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
-curl "https://freefeed.net/v2/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/like"
+curl "https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/like"
   -H "x-authentication-token: yourFreefeedAPIToken"
   -X POST
 ```
@@ -502,7 +502,7 @@ This endpoint likes a specific post.
 
 ### HTTP Request
 
-`POST https://freefeed.net/v2/posts/<ID>/like`
+`POST https://freefeed.net/v1/posts/<ID>/like`
 
 ### URL Parameters
 
@@ -530,7 +530,7 @@ post_resource.unlike(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
-curl "https://freefeed.net/v2/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/unlike"
+curl "https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/unlike"
   -H "x-authentication-token: yourFreefeedAPIToken"
   -X POST
 ```
@@ -545,7 +545,7 @@ This endpoint unlikes a specific post.
 
 ### HTTP Request
 
-`POST https://freefeed.net/v2/posts/<ID>/unlike`
+`POST https://freefeed.net/v1/posts/<ID>/unlike`
 
 ### URL Parameters
 
@@ -572,7 +572,7 @@ post_resource.hide(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
-curl "https://freefeed.net/v2/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/hide"
+curl "https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/hide"
   -H "x-authentication-token: yourFreefeedAPIToken"
   -X POST
 ```
@@ -587,7 +587,7 @@ This endpoint likes a specific post.
 
 ### HTTP Request
 
-`POST https://freefeed.net/v2/posts/<ID>/hide`
+`POST https://freefeed.net/v1/posts/<ID>/hide`
 
 ### URL Parameters
 
@@ -613,7 +613,7 @@ post_resource.unhide(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
-curl "https://freefeed.net/v2/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/unhide"
+curl "https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/unhide"
   -H "x-authentication-token: yourFreefeedAPIToken"
   -X POST
 ```
@@ -628,7 +628,7 @@ This endpoint unlikes a specific post.
 
 ### HTTP Request
 
-`POST https://freefeed.net/v2/posts/<ID>/unhide`
+`POST https://freefeed.net/v1/posts/<ID>/unhide`
 
 ### URL Parameters
 
@@ -665,7 +665,7 @@ post_resource.disable_comments(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
-curl "https://freefeed.net/v2/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/disableComments"
+curl "https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/disableComments"
   -H "x-authentication-token: yourFreefeedAPIToken"
   -X POST
 ```
@@ -680,7 +680,7 @@ This endpoint disables comments for a specific post.
 
 ### HTTP Request
 
-`POST https://freefeed.net/v2/posts/<ID>/disableComments`
+`POST https://freefeed.net/v1/posts/<ID>/disableComments`
 
 ### URL Parameters
 
@@ -707,7 +707,7 @@ post_resource.enable_comments(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
-curl "https://freefeed.net/v2/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/enableComments"
+curl "https://freefeed.net/v1/posts/b4a6aca7-c0e0-4b84-a586-30abbf8c29b2/enableComments"
   -H "x-authentication-token: yourFreefeedAPIToken"
   -X POST
 ```
@@ -722,7 +722,7 @@ This endpoint enables comments for a specific post.
 
 ### HTTP Request
 
-`POST https://freefeed.net/v2/posts/<ID>/enableComments`
+`POST https://freefeed.net/v1/posts/<ID>/enableComments`
 
 ### URL Parameters
 
