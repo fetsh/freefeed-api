@@ -6,9 +6,8 @@
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-post_resource = Freefeed::Post.new(client: client)
 
-post_resource.get(id: '7c70927a-4e51-49e7-bfe1-33bc4c1c0618')
+Freefeed::Post.get(client, id: '7c70927a-4e51-49e7-bfe1-33bc4c1c0618')
 ```
 
 ```shell
@@ -148,8 +147,6 @@ require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
 
-post_resource = Freefeed::Post.new(client: client)
-
 post = Freefeed::Types::PostCreate.new(
   {
     post: { 
@@ -161,7 +158,7 @@ post = Freefeed::Types::PostCreate.new(
   }
 )
 
-post_resource.create(post)
+Freefeed::Post.create(client, post)
 ```
 
 ```shell
@@ -296,9 +293,8 @@ feeds | String or Array of String | Yes | Username or groupname or array of user
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-post_resource = Freefeed::Post.new(client: client)
 
-post_resource.destroy(id: '7c70927a-4e51-49e7-bfe1-33bc4c1c0618')
+Freefeed::Post.destroy(client, id: '7c70927a-4e51-49e7-bfe1-33bc4c1c0618')
 ```
 
 ```shell
@@ -342,11 +338,9 @@ require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
 
-post_resource = Freefeed::Post.new(client: client)
-
 post = Freefeed::Types::PostUpdate.new( { post: { body: 'HelloWorldAgain!' } } )
 
-post_resource.update({id: '7c70927a-4e51-49e7-bfe1-33bc4c1c0618'}, post)
+Freefeed::Post.update(client, {id: '7c70927a-4e51-49e7-bfe1-33bc4c1c0618'}, post)
 ```
 
 ```shell
@@ -481,9 +475,8 @@ feeds | Array of String | No | Array of username and/or groupnames where the pos
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-post_resource = Freefeed::Post.new(client: client)
 
-post_resource.like(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
+Freefeed::Post.like(client, id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
@@ -524,9 +517,8 @@ Code | JSON
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-post_resource = Freefeed::Post.new(client: client)
 
-post_resource.unlike(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
+Freefeed::Post.unlike(client, id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
@@ -566,9 +558,8 @@ Code | JSON
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-post_resource = Freefeed::Post.new(client: client)
 
-post_resource.hide(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
+Freefeed::Post.hide(client, id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
@@ -607,9 +598,8 @@ Code | JSON
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-post_resource = Freefeed::Post.new(client: client)
 
-post_resource.unhide(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
+Freefeed::Post.unhide(client, id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
@@ -644,24 +634,14 @@ Code | JSON
 
 
 
-
-
-
-
-
-
-
-
-
 ## Disable comments for Post
 
 ```ruby
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-post_resource = Freefeed::Post.new(client: client)
 
-post_resource.disable_comments(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
+Freefeed::Post.disable_comments(client, id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell
@@ -701,9 +681,8 @@ Code | JSON
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-post_resource = Freefeed::Post.new(client: client)
 
-post_resource.enable_comments(id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
+Freefeed::Post.enable_comments(client, id: 'b4a6aca7-c0e0-4b84-a586-30abbf8c29b2')
 ```
 
 ```shell

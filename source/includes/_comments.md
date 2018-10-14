@@ -7,13 +7,11 @@ require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
 
-comment_resource = Freefeed::Comment.new(client: client)
-
 comment = Freefeed::Types::CommentCreate.new(
   comment: { body: "Hi, love!", postId: '5579b79b-c5f5-464c-b101-638de4a8f335'}
 )
 
-comment_resource.create(comment)
+Freefeed::Comment.create(client, comment)
 ```
 
 ```shell
@@ -111,11 +109,9 @@ require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
 
-comment_resource = Freefeed::Comment.new(client: client)
-
 comment = Freefeed::Types::CommentUpdate.new(comment: { body: "Bye bye happiness"})
 
-comment_resource.update({id: '8cb67cab-0b4e-46ce-94bb-90b6eb2cc092'}, comment)
+Freefeed::Comment.update(client, {id: '8cb67cab-0b4e-46ce-94bb-90b6eb2cc092'}, comment)
 ```
 
 ```shell
@@ -218,9 +214,7 @@ require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
 
-comment_resource = Freefeed::Comment.new(client: client)
-
-comment_resource.destroy(id: '8cb67cab-0b4e-46ce-94bb-90b6eb2cc092')
+Freefeed::Comment.destroy(client, id: '8cb67cab-0b4e-46ce-94bb-90b6eb2cc092')
 ```
 
 ```shell
@@ -262,9 +256,7 @@ require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
 
-comment_resource = Freefeed::Comment.new(client: client)
-
-comment_resource.like(id: '56d1864d-0d58-49b8-9827-109850991f60')
+Freefeed::Comment.like(client, id: '56d1864d-0d58-49b8-9827-109850991f60')
 ```
 
 ```shell
@@ -328,9 +320,7 @@ require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
 
-comment_resource = Freefeed::Comment.new(client: client)
-
-comment_resource.unlike(id: '56d1864d-0d58-49b8-9827-109850991f60')
+Freefeed::Comment.unlike(client, id: '56d1864d-0d58-49b8-9827-109850991f60')
 ```
 
 ```shell
@@ -365,9 +355,7 @@ require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
 
-comment_resource = Freefeed::Comment.new(client: client)
-
-comment_resource.likes(id: '56d1864d-0d58-49b8-9827-109850991f60')
+Freefeed::Comment.likes(client, id: '56d1864d-0d58-49b8-9827-109850991f60')
 ```
 
 ```shell

@@ -6,13 +6,12 @@
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-bookmarklet_resource = Freefeed::Bookmarklet.new(client: client)
 bookmarklet = Freefeed::Types::Bookmarklet.new(
   title: 'New Post',
   comment: 'First comment',
   image: 'http://example.com/image.jpeg'
 )
-bookmarklet_resource.create(bookmarklet)
+Freefeed::Bookmarklet.create(client, bookmarklet)
 ```
 
 ```shell

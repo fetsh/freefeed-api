@@ -5,8 +5,8 @@
 require 'freefeed'
 
 client = Freefeed::Client.new('yourFreefeedAPIToken')
-attachment_resource = Freefeed::Attachment.new(client: client)
-attachment_resource.create(
+Freefeed::Attachment.create(
+  client,
   file: Faraday::UploadIO.new("/path/to/your/file.jpg", 'image/jpeg')
 )
 ```
